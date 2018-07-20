@@ -1,4 +1,5 @@
 import falcon
+import ZODB, ZODB.FileStorage
 
 class URL(object):
 	def on_get(self, req, res):
@@ -19,6 +20,9 @@ app = falcon.API()
 test_resource = TestResource()
 
 ok = URL()
+
+storage = ZODB.FileStorage.FileStorage('mydata.fs')
+db = ZODB.DB(storage)
 
 # Add a route to serve the resource
 app.add_route('/test', test_resource)
